@@ -1,4 +1,4 @@
-# Here are my completed projects
+## Here are my completed projects
 
-# Projects
+### Completed Projects
 1.Numpy-Softmax-FashionMNIST
