@@ -1,3 +1,3 @@
-## These are my current in-progress projects
+## Here are my current in-progress projects
 
 ### In-Progress Projects
