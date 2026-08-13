@@ -1,3 +1,3 @@
-## These are the projects I have planned
+## Here are the projects I have planned
 
 ### Upcoming Projects
