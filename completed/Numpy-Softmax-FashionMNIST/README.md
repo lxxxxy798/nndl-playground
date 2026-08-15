@@ -1,80 +1,113 @@
-# NumPy-Softmax-FashionMNIST
+# 使用 NumPy 实现 Fashion-MNIST Softmax 分类
 
-## 项目背景
+本项目使用 NumPy 从零实现 Softmax 回归模型，并在 Fashion-MNIST 数据集上完成训练和测试。模型计算与训练过程不依赖 PyTorch 或 TensorFlow 等深度学习框架；`torchvision` 仅用于下载和读取数据集。
 
-用纯 NumPy（不依赖 PyTorch/TensorFlow 等深度学习框架）从零实现 Softmax 回归模型，
-在 Fashion-MNIST 数据集上训练并达到 85% 以上的测试准确率。
+项目通过手写 Softmax、交叉熵损失、反向传播和梯度下降，将数学公式完整转换为可运行代码，以加深对神经网络训练底层原理的理解。
 
-本项目是我在暑假期间自学深度学习基础时完成的，目的是通过手写反向传播和梯度下降，
-建立对神经网络训练底层原理的具体理解。
+## 实现内容
 
-## 数学原理
-
-- **模型**：Softmax 回归（线性模型 + Softmax 激活 + 交叉熵损失）
-- **前向传播**：`Z = X @ W + b` → Softmax → 概率分布
+- **模型**：线性模型与 Softmax 激活组成的多分类模型
+- **前向传播**：`Z = X @ W + b`，经过 Softmax 得到类别概率
 - **损失函数**：交叉熵损失 `L = -mean(log(probs[true_class]))`
-- **反向传播**：手动推导并实现了交叉熵 + Softmax 的联合梯度 `dZ = (probs - y_onehot) / N`
-- **优化算法**：Mini-batch 随机梯度下降，`batch_size=64`，`learning_rate=0.1`
+- **反向传播**：手动实现交叉熵与 Softmax 的联合梯度 `dZ = (probs - y_onehot) / N`
+- **优化方法**：小批量随机梯度下降
+- **结果展示**：绘制训练损失、训练准确率和测试集预测样例
+
+## 主要参数
+
+| 参数 | 数值 |
+| --- | ---: |
+| 训练轮数 | 50 |
+| 批次大小 | 64 |
+| 学习率 | 0.1 |
+| 类别数量 | 10 |
 
 ## 项目结构
 
 ```text
-NumPy-Softmax-FashionMNIST/
-├── task1 加载数据.py
-├── task2 实现 Softmax 函数.py
-├── task3 实现交叉熵损失函数.py
-├── task4 阶段一回顾.py
-├── task5 实现前向传播.py
-├── task6 实现反向传播的梯度计算.py
-├── task7 实现不含批次的完整训练.py
-├── task8 添加批次训练.py
-├── task9 可视化.py
+Numpy-Softmax-FashionMNIST/
+├── README.md
 ├── softmax_numpy.py
-├── training_curve.png
+├── task1加载数据.py
+├── task2实现Softmax函数.py
+├── task3实现交叉熵损失函数.py
+├── task4阶段一回顾.py
+├── task5实现前向传播.py
+├── task6实现反向传播的梯度计算.py
+├── task7实现不含批次的完整训练.py
+├── task8添加批次训练.py
+├── task9可视化.py
+├── training_curves.png
 └── sample_predictions.png
 ```
 
-> 说明：`task*.py` 为分阶段拆解的练习脚本，按编号顺序逐个完成；`softmax_numpy.py` 为全部任务整合后的完整可运行版本。
+其中，`task*.py` 是按学习顺序拆分的阶段性练习脚本，`softmax_numpy.py` 是整合所有步骤后的完整可运行版本。
 
-## 运行方式
+## 运行项目
 
-### 环境依赖
+### 环境要求
 
 - Python 3.14
 - NumPy
 - Matplotlib
-- torchvision（仅用于下载 Fashion-MNIST 数据集，不用于模型构建或训练）
+- torchvision
 
-### 运行步骤
+### 操作步骤
 
-1. 克隆本仓库
-2. 安装依赖：`pip install numpy matplotlib torchvision`
-3. 运行训练脚本：`python softmax_numpy.py`
-4. 训练结束后，控制台会打印测试准确率，同时生成两张可视化图片
+1. 克隆仓库并进入项目目录：
 
-## 训练结果
+   ```bash
+   git clone https://github.com/lxxxxy798/nndl-playground.git
+   cd nndl-playground/completed/Numpy-Softmax-FashionMNIST
+   ```
 
-- 最终训练准确率：**82.51–87.20%**
-- 最终测试准确率：**82.83–84.53%**
+2. 安装依赖：
 
-> 注：由于权重随机初始化、Mini-batch 样本打乱，每次运行结果会存在浮动。以上范围为十次测试所得。
+   ```bash
+   pip install numpy matplotlib torchvision
+   ```
 
-- 训练曲线：见 `training_curve.png`
-- 预测结果样例：见 `sample_predictions.png`
+3. 运行完整训练程序：
 
-## 个人收获
+   ```bash
+   python softmax_numpy.py
+   ```
 
-通过这个项目，我具体掌握了：
+训练结束后，程序会在控制台输出测试准确率，并生成训练曲线和预测结果图片。
 
-1. 从数学公式到 NumPy 代码的完整翻译过程
-2. 反向传播中链式法则的实际计算（交叉熵 + Softmax 的联合梯度）
-3. Mini-batch 梯度下降的训练循环实现
-4. 模型评估（准确率、损失曲线）的基本方法
+## 实验结果
 
-## 联系方式
+十次测试中的结果范围如下。由于权重采用随机初始化，且每轮训练都会打乱样本，因此每次运行结果会有一定浮动。
 
-西南大学 计算机与信息科学学院 软件学院
+| 指标 | 结果范围 |
+| --- | ---: |
+| 训练准确率 | 82.51%–87.20% |
+| 测试准确率 | 82.83%–84.53% |
 
-计算机科学与技术专业（中外合办） 陆熙悦
+### 训练曲线
 
-swulxxxxy@email.swu.edu.cn
+![训练损失与准确率曲线](./training_curves.png)
+
+### 预测结果样例
+
+![Fashion-MNIST 预测结果样例](./sample_predictions.png)
+
+## 项目收获
+
+通过这个项目，我掌握了：
+
+1. 将数学公式转换为 NumPy 代码的完整过程
+2. 交叉熵与 Softmax 联合梯度的推导和实现
+3. 小批量梯度下降训练循环的实现方法
+4. 使用损失曲线、准确率和预测样例评估模型的方法
+
+## 作者信息
+
+- 学校：西南大学计算机与信息科学学院、软件学院
+- 专业：计算机科学与技术（中外合作办学）
+- 作者：陆熙悦
+- 邮箱：swulxxxxy@email.swu.edu.cn
+
+---
+
+[← 返回已完成项目](../)
